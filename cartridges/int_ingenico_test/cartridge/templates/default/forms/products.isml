@@ -1,0 +1,33 @@
+<!--- TEMPLATENAME: refund.isml --->
+<div class="test" id="productForm">
+	<h2>Product Actions</h2>
+	<h5>URL: ${pdict.CONFIG.getAPIURL(pdict.CONFIG.Services.PRODUCT_LIST).URL}</h5>
+	<div>
+		<form action="${URLUtils.httpsContinue()}" 
+			method="post"
+			onSubmit="sendForm(this,event)")
+			target="results" class="form-horizontal"
+			name="products" 
+			id="products">
+			<fieldset>
+				<isinputfield
+					formfield="${pdict.CurrentForms.products.currency}"
+					type="input" />
+				<isinputfield
+					formfield="${pdict.CurrentForms.products.countrycode}"
+					type="input" />
+				<isinputfield
+					formfield="${pdict.CurrentForms.products.hide}"
+					type="input" />
+			</fieldset>
+			<div class="actions">
+				<button type="submit"
+					name="${pdict.CurrentForms.products.productlist.htmlName}"
+					value="productlist" 
+					onClick="handleFormAction(this,event)">Product List</button>
+			</div>
+		</form>
+	</div>
+	<h3>Results (<a href="#" onClick="toggleResults(this)">show/hide</a>)<span class="result-status"></span></h3>
+	<div class="test-results" id="capturePaymentResults"></div>
+</div>

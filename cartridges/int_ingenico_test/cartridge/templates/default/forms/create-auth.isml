@@ -1,0 +1,61 @@
+<!--- TEMPLATENAME: create-auth.isml --->
+<div class="test" id="createPayment">
+	<h2>Create new Payment</h2>
+	<h5>URL: ${pdict.CONFIG.getAPIURL(pdict.CONFIG.Services.PAYMENT_CREATE).URL}</h5>
+	<div>
+		<form action="${URLUtils.httpsContinue()}" 
+			method="post"
+			onSubmit="sendForm(this,event)")
+			target="results" class="form-horizontal" 
+			id="newCreditCard">
+			<fieldset>
+				<isinputfield formfield="${pdict.CurrentForms.newCreditCard.cc_Skip3DS}" 
+					type="select" />
+				<isinputfield
+					formfield="${pdict.CurrentForms.newCreditCard.customerID}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.newCreditCard.basket}"
+					type="input" />
+				<isinputfield
+					formfield="${pdict.CurrentForms.newCreditCard.cc_name}"
+					type="input" />
+				<isinputfield
+					formfield="${pdict.CurrentForms.newCreditCard.cc_number}"
+					type="input" />
+				<isinputfield
+					formfield="${pdict.CurrentForms.newCreditCard.cc_expiry}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.newCreditCard.cc_cvv}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.newCreditCard.currency}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.newCreditCard.amount}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.newCreditCard.productID}"
+					type="input" />
+				<iscomment> <isinputfield formfield="${pdict.CurrentForms.newCreditCard.tds_cavv}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.newCreditCard.tds_cavvAlgorithm}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.newCreditCard.tds_eci}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.newCreditCard.tds_validationResult}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.newCreditCard.tds_xid}"
+					type="input" /> </iscomment>
+			</fieldset>
+			<div class="actions">
+				<button type="submit"
+					name="${pdict.CurrentForms.newCreditCard.create.htmlName}"
+					onClick="handleFormAction(this,event)"
+					value="create">Create</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.newCreditCard.card_type.htmlName}"
+					onClick="handleFormAction(this,event)"
+					value="create">Card Type</button>
+			</div>
+		</form>
+	</div>
+	<h3>Results (<a href="#" onClick="toggleResults(this)">show/hide</a>)<span class="result-status"></span></h3>
+	<div class="test-results" id="createPaymentResults1"></div>
+</div>

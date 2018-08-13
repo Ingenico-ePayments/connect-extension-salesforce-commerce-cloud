@@ -1,0 +1,6 @@
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<iscomment> TEMPLATENAME: id-verification-3DS.isml </iscomment>
+<isdecorate template="checkout/pt_orderconfirmation">
+    <h2 style="text-align:center;width:100%;">${Resource.msg(pdict.titleMsg || 'payment.id.verification.title.3ds','ingenico',null)}</h2>
+    <iframe name="verification3DS" width="100%" height="600" src="${pdict.redirectURL}" style="border: none;margin: 0 auto;width: 100%;height: 600px;display: block;">${Resource.msg('payment.id.verification.loadingmessage','ingenico','')}</iframe>
+</isdecorate>

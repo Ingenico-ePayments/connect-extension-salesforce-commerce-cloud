@@ -1,0 +1,326 @@
+<!--- TEMPLATENAME: test-template.isml --->
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<!doctype html>
+<!--[if lt IE 7]> <html class="ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> 
+<html lang="en"> <!--<![endif]-->
+<head>
+	<isscript>
+		var pageContext = {
+			title: 'TestCC',
+			type: 'storefront',
+			ns: 'storefront'
+		};
+		pdict.showCountrySelector = true;
+		
+		
+		function syntaxHighlight(json) {
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+    
+    
+}
+	</isscript>
+	<isinclude template="util/modules"/>
+	<script
+	  src="https://code.jquery.com/jquery-3.2.1.min.js"
+	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	  crossorigin="anonymous"></script>
+	  
+	<script>
+		var results = {}
+		var act
+		function toggleResults(el){
+			if(el){
+				$(el).closest('.test').find('.test-results').toggleClass("show");
+			}
+		}
+		
+		function handleFormAction(button,e){
+			form = $(button).closest('form')[0];
+			console.log("BUTTON",button,"EVENT",e, 'CLOSEST FORM', form);
+			if(e){
+				e.preventDefault();
+				e.stopPropagation();			
+			}
+			sendForm(form,e,{name:button.name, value:button.value});
+		}
+		
+		function sendForm(form, e, action){
+			if(e){
+				e.preventDefault();
+				e.stopPropagation();			
+			}
+			
+			if(!action){
+				return;
+			}
+			
+			
+			var formData = $(form).serialize();
+			formData += "&" + action.name + "=" + action.value;
+			var id = form.id;
+			var url = form.action;
+			var container = $(form).closest('.test')[0];
+			var resultsContainer = $(container).find('.test-results')[0];
+			console.log("FORM",form,"EVENT",e, "SERIAL", formData);
+			
+			$(form).find("button").attr("disabled", true);
+
+			$(container).find(".result-status").html("");
+			$(resultsContainer).html('<div class="loader">Loading...</div>');
+
+			console.log("form", id, url, container.id, [container,resultsContainer]);
+
+			if(!$(resultsContainer).hasClass("show")){
+				$(resultsContainer).toggleClass("show");
+			}
+			var startTimer = Date.now();
+			$.post(url, formData, function(result,status, xhrObj){
+				var duration = Date.now() - startTimer;
+				console.log("GOT RESPONSE", status, result, xhrObj);
+				if(xhrObj.status == 200){
+					results[id] = result;
+				}else{
+					results[id] = {error: result, status: xhrObj.status};
+				}
+				
+				$(resultsContainer).html("<pre>" + JSON.stringify(result, null, 3) + "</pre>");
+				
+				if(!$(resultsContainer).hasClass("show")){
+					$(resultsContainer).toggleClass("show");
+				}
+				
+				window.result = result;
+
+				if(result && result.result && result.result.payment && result.result.payment.status){
+					$(container).find(".result-status").html(result.result.payment.status);
+				}else if(result && result.result && result.result.status){
+					$(container).find(".result-status").html(result.result.status);
+				}else if(result && result.result.error && result.result.error.paymentResult && result.result.error.paymentResult.payment){
+					$(container).find(".result-status").html(result.result.error.paymentResult.payment.status);
+				}else if(result && result.result.error && result.result.error.errors){
+					$(container).find(".result-status").html(result.result.error.errors.map(function(el){return el.message}).join(","));
+				}
+
+				
+				var status = $(container).find(".result-status");
+				
+				status.html(status.text() + " <i>" + duration + " ms</i>");
+				
+				$(form).find("button").attr("disabled", false);
+				
+			}, "json");
+			
+			
+		}
+	</script>
+	  
+    
+	<iscomment>This page must be cachable. It inherits the caching attributes by the decorated template.</iscomment>
+
+	<isinclude template="components/header/htmlhead"/>
+	<isinclude template="content/home/pt_storefront_UI"/>
+	<style>
+		html{
+			height:100%;
+			min-height:100%;
+			overflow-y: hidden;
+			background: #EEEEEE;
+		}
+
+		body{
+			height:100%;
+			min-height:100%;
+			overflow-y: scroll;
+		    background: #222;
+    		color: #EEE;
+		}
+
+input[type="text"], input[type="number"], input[type="password"], input[type="date"], textarea, select {
+    background: #555;
+}
+
+h2 {
+    color: #bad5ff;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+		h3, label {
+			font-weight: 300;
+		}
+		
+		h5 {
+    font-size: 0.75rem;
+    font-weight: 300;
+}
+		
+		.test-results {
+			display: none;
+		}
+				
+		${'#'}wrapper {
+			overflow-y: scroll;
+			max-width: 1000px;
+		    /* height: calc(100% - 110px); */
+	        background: none;
+		}
+				
+		div.actions {
+		    display: flex;
+    		justify-content: center;
+		}
+		
+		div.actions button {
+		    margin: 10px;
+			max-width: 100px;
+		}
+		
+		.test {
+			margin-bottom: 30px;
+			padding: 20px;
+		    background-color: #333;
+    		font-weight: 300;
+		}
+
+		.result-status{
+			margin-left: 30px;
+			color: rgb(255, 238, 145);
+		}
+		
+		.result-status i {
+    		font-weight: 300;
+    		margin-left: 10px;
+    		font-style: normal;
+    		color: #DDDDDD;
+		}
+		
+		.test-results {
+			max-width: 1200px;
+			width:100%;
+			border-top: 1px solid #dddddd;
+			margin: 10px auto;
+			/* padding-bottom: 20px; */
+		}
+		
+		.test-results iframe {
+			border: 0;
+			width:100%;
+			background: #f3f2ff;
+			min-height: 400px;
+		}
+		
+		footer {
+		    position: absolute;
+		    bottom: 0px;
+		    height: 40px;
+		    width: 100%;
+		    background: #3366b3;
+		    left: 0;
+		    text-align: center;
+		    color: white;
+		}
+		
+		.show {
+			display: block !important;
+		}
+		
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #a04444;
+  font-size: 10px;
+  margin: 10px auto 40px;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}		
+
+	</style>
+	<iscomment>Add page specific header information here.</iscomment>
+
+</head>
+<body>
+<h1 style="text-align:center; width:100%;margin-top:10px;">Ingenico Integration Test Page</h1>
+<div style="text-align:center; width:100%;margin:-10px 0 30px;">Version is: ${pdict.VERSION}, Build: ${pdict.BUILD}</div>
+
+	<div id="wrapper" class="pt_storefront">
+
+	<isreplace/>
+	</div>
+	<!--  /wrapper -->
+<!-- 	 <div class="test-results">
+	 	<h3>Results:</h3>
+ 		<iframe name="results"></iframe>
+ 	</div>
+ -->
+ <!-- 	<footer>
+		<h3>INGENICO INTEGRATION</h3>
+	</footer>
+ -->
+ </body>
+</html>

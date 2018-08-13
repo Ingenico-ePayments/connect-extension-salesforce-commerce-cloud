@@ -1,0 +1,18 @@
+POST https://sqli02-alliance-prtnr-eu05-dw.demandware.net/on/demandware.store/Sites-SiteGenesisGlobal-Site/en_GB/Ingenico-Feedback?test={{timestamp}} HTTP/1.1
+Content-Type: application/json
+X-Version: 1234
+x-gcs-signature: JdJhWtD/R0xlc3YckUIqNjV3dYFtRlA6E77b6KsksmA=
+
+{"payment":{"id":"3031336958_0","paymentOutput":{"amountOfMoney":{"amount":9343,"currencyCode":"USD"},"references":{"merchantReference":"00001109"},"paymentMethod":"card","cardPaymentMethodSpecificOutput":{"paymentProductId":1,"authorisationCode":"test123","fraudResults":{"fraudServiceResult":"N"},"threeDSecureResults":{"eci":"92"},"card":{"cardNumber":"XXXXXXXXXXXX9299","expiryDate":"0318"}}},"status":"PENDING_CAPTURE","statusOutput":{"isCancellable":true,"statusCategory":"PENDING_MERCHANT","statusCode":5,"isAuthorized":true,"isRefundable":false}}}
+
+###
+POST https://sqli02-alliance-prtnr-eu05-dw.demandware.net/on/demandware.store/Sites-SiteGenesis-Site/en_US/Ingenico-Feedback?test={{timestamp}} HTTP/1.1
+Content-Type: application/json
+X-Version: 1234
+x-gcs-signature: JdJhWtD/R0xlc3YckUIqNjV3dYFtRlA6E77b6KsksmA=
+
+{"payment":{"id":"3031336958_0","paymentOutput":{"amountOfMoney":{"amount":9343,"currencyCode":"USD"},"references":{"merchantReference":"00001109"},"paymentMethod":"card","cardPaymentMethodSpecificOutput":{"paymentProductId":1,"authorisationCode":"test123","fraudResults":{"fraudServiceResult":"N"},"threeDSecureResults":{"eci":"92"},"card":{"cardNumber":"XXXXXXXXXXXX9299","expiryDate":"0318"}}},"status":"PENDING_CAPTURE","statusOutput":{"isCancellable":true,"statusCategory":"PENDING_MERCHANT","statusCode":5,"isAuthorized":true,"isRefundable":false}}}
+
+###
+
+{"apiVersion":"v1","created":"2018-01-25T17:05:55.188+0100","id":"7c5e7aa3-8c63-43f4-a0ed-338f5fab196c","merchantId":"inventcommerce","payment":{"id":"3030588660_0","paymentOutput":{"amountOfMoney":{"amount":16158,"currencyCode":"GBP"},"references":{"merchantReference":"00018902"},"paymentMethod":"card","cardPaymentMethodSpecificOutput":{"paymentProductId":1,"authorisationCode":"test123","card":{"cardNumber":"XXXXXXXXXXXX1111","expiryDate":"0119"}}},"status":"PENDING_CAPTURE","statusOutput":{"isCancellable":true,"statusCategory":"PENDING_MERCHANT","statusCode":5,"isAuthorized":true,"isRefundable":false}},"type":"payment.pending_capture"}

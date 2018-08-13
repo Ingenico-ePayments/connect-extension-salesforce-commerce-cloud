@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19">
+<field formid="customerID" label="customerID" type="string" mandatory="true" default-value="FDSA1234" />
+<field formid="productID" label="productID" type="string" mandatory="true" default-value="1" />
+<field formid="amount" label="amount" type="string" mandatory="true" default-value="123.45" />
+<field formid="currency" label="currency" type="string" mandatory="true" default-value="USD" />
+<field formid="basket" label="basket" type="string" mandatory="true" default-value="ABCD1234" />
+<field formid="cc_name" label="cc.name" type="string" mandatory="true"  default-value="Mr T Test"/>
+<field formid="cc_number" label="cc.number" type="string" mandatory="true" description="VISA 4111111111111111" default-value="4111111111111111"/>
+<field formid="cc_expiry" label="cc.expiry" type="string" mandatory="true"  description="MMYY" default-value="1218"/>
+<field formid="cc_cvv" label="cc.cvv" type="string" mandatory="true"  default-value="123"/>
+<field formid="cc_Skip3DS" label="cc.Skip3DS" type="boolean" default-value="true">
+			<options>
+				<option label="cc.Skip3DS.options.false" value="false"/>
+				<option label="cc.Skip3DS.options.true" value="true"/>
+			</options>
+</field>
+<action formid="create" valid-form="true" />
+<action formid="card_type" valid-form="true" />
+</form>

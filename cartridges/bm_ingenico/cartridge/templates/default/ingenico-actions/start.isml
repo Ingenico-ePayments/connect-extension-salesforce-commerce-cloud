@@ -1,0 +1,491 @@
+<!--- TEMPLATENAME: start.isml --->
+<iscomment>
+	This template allows to manage orders that require manual approval
+</iscomment>
+<style>
+
+    .ingenico-container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ingenico-container h1{
+        font-size: 3rem !important;
+        text-align: center;
+        font-weight: 400 !important;;
+    }
+
+    .ingenico-container .headings{
+        display: flex;
+    }
+
+    .ingenico-box {
+        margin: 10px;
+        width: 200px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: flex-end;
+        border-radius: 10px;
+        color: white;
+        background: rgba(15, 88, 88, 0.68);
+        cursor: pointer;
+    }
+
+    .ingenico-box .number {
+        font-size: 3rem;
+        margin-bottom: 5px;
+    }
+
+    .ingenico-box h2 {
+        font-variant: all-small-caps;
+        font-size: 2.2rem;
+    }
+
+    .action_container{
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid;
+        margin-top:20px;
+        padding-top:20px;
+    }
+
+    ${'#'}action_title {
+        font-size:2.2rem;
+        color: rgba(15, 88, 88, 0.68);
+        font-weight: 700;
+    }
+
+    table${'#'}actioncontent {
+        max-width: 1360px;
+        width: 1360px;
+        border-collapse: collapse;
+    }
+
+    table${'#'}actioncontent > tr {
+        border-bottom: 1px solid rgb(210,210,210);            
+    }
+
+    table${'#'}actioncontent th, table${'#'}actioncontent td {
+        vertical-align: top;
+    }
+
+    table${'#'}actioncontent td, table${'#'}actioncontent th {
+        padding:10px;
+        text-align: center;
+    }
+
+    table${'#'}actioncontent td.total{
+        white-space: nowrap;
+        text-align: right;
+    }
+
+    .flexcenter{
+        display: flex;
+        justify-content: center;
+    }
+
+    table${'#'}actioncontent td.date {
+        max-width: 100px;
+        width: 100px;
+    }
+
+    table${'#'}actioncontent td.addr {
+        max-width: 150px;
+        width: 150px;
+    }
+
+    table${'#'}actioncontent td.actions {
+        max-width: 110px;
+        width: 110px;
+        padding:10px 10px 10px 0;
+        vertical-align: middle;
+    }
+
+    table${'#'}actioncontent td.actions a{
+        margin: 5px;
+        max-width: 100px;
+        width: 100px;
+        padding: 5px 2px;
+        border: 0;
+        border-radius: 10px;
+        outline: none;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    table${'#'}actioncontent td.actions a:active{
+        background: rgba(228,228,228,0.3) !important;
+    }
+
+    table${'#'}actioncontent td.actions a.approve{
+        background: rgba(92,228,92,0.3);
+        color: rgba(0,150,0,1);
+        font-weight: 700;
+        border: 1px solid rgba(0,150,0,0.5);
+    }
+
+    table${'#'}actioncontent td.actions a.reject{
+        background: rgba(228,92,92,0.3);
+        color: rgba(150,0,0,1);
+        border: 1px solid rgba(150,0,0,0.5);
+    }
+
+    table${'#'}actioncontent td.products {
+        /* max-width:400px; */
+        /* padding-top:8; */
+    }
+
+    table${'#'}actioncontent td.products table {
+        width:100%;
+    }
+
+    table${'#'}actioncontent td.products table td {
+        padding:0px 2px;
+    }
+
+    table${'#'}actioncontent td.products table td.id {
+        max-width: 70px;
+        width: 70;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+        overflow: hidden;
+    }
+
+    table${'#'}actioncontent td.products table td.name {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: left;
+    }
+
+    table${'#'}actioncontent td.products table td.qty {
+        white-space: nowrap;
+        max-width:30px;
+        width: 30px;
+    }
+
+    table${'#'}actioncontent td.products table td.price {
+        min-width:80px;
+        width:80px;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    table${'#'}actioncontent > tr:not(:first-child):hover {
+        background-color: rgba(15, 88, 88, 0.1);
+    }
+
+    .overlay{
+        position:fixed;
+        top: 0;
+        left:0;
+        z-index: 1000;
+        width: 100%;
+        height: 100%;
+        background: rgba(1,1,1,0.4);
+        display: none;
+    }
+
+    .overlay.show{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .overlay .result {
+        font-size: 3rem;
+        color: rgb(228,228,228);
+    }
+
+    .overlay .result.error span {
+        color: pink;
+        font-style: italic;
+        display: block;
+    } 
+
+/* https://projects.lukehaas.me/css-loaders/ */
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #77deff;
+  font-size: 10px;
+  margin: 10px auto 40px;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+}
+.loader:after {
+  left: 3.5em;
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2;
+
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+</style>
+<isdecorate template="application/MenuFrame">
+    <div class="ingenico-container">
+        <h1>${Resource.msg('action.heading.title','ingenicoadmin',null)}</h1>
+        <div class="headings">
+            <div class="ingenico-box" onClick="getFraudData();">
+                <div id="count_fraud_approval" class="number">${pdict.counts.fraud_approval}</div>
+                <h2>${Resource.msg('action.heading.fraudapproval','ingenicoadmin',null)}</h2>
+            </div>
+            <div class="ingenico-box" onClick="getPendingApprovalData();">
+                <div id="count_approval" class="number">${pdict.counts.approval}</div>
+                <h2>${Resource.msg('action.heading.approval','ingenicoadmin',null)}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="action_container">
+        <h3 id="action_title"></h3>
+        <table id="actioncontent">
+            
+        </table>
+    </div>
+    <div class="overlay"></div>
+    <script id="action_fraud_order_headings" type="text/x-jQuery-tmpl">
+        <tr>
+        <th>${Resource.msg('action.table.order','ingenicoadmin',null)}</th>
+        <th>${Resource.msg('action.table.date','ingenicoadmin',null)}</th>
+        <th>${Resource.msg('action.table.customer','ingenicoadmin',null)}</th>
+        <th>${Resource.msg('action.table.products','ingenicoadmin',null)}</th>
+        <th>${Resource.msg('action.table.billing','ingenicoadmin',null)}</th>
+        <th>${Resource.msg('action.table.shipping','ingenicoadmin',null)}</th>
+        <th>${Resource.msg('action.table.total','ingenicoadmin',null)}</th>
+        <th>${Resource.msg('action.table.action','ingenicoadmin',null)}</th>
+        </tr>
+    </script>
+
+    <script id="action_fraud_order" type="text/x-jQuery-tmpl">
+        <tr id="%{uuid}">
+        <td>%{orderno}</td>
+        <td class="date">%{date}</td>
+        <td>%{customer.name}<br>%{customer.email}</td>
+        <td class="flexcenter products"><table>%{products}</table></td>
+        <td class="addr">%{billingAddress}</td>
+        <td class="addr">%{shippingAddress}</td>
+        <td class="total">%{total}</td>
+        <td class="actions">%{actions}</td>
+        </tr>
+    </script>
+    <script id="action_products" type="text/x-jQuery-tmpl">
+        <tr>
+        <td class="name">%{name}</td>
+        <td class="qty">x %{qty}</td>
+        <td class="price">%{price}</td>
+        </tr>
+    </script>
+    <script>
+
+    var counts = {
+        fraud: ${pdict.counts.fraud_approval},
+        approval: ${pdict.counts.approval}
+    }
+
+    var viewOrderURL = "${URLUtils.https('ViewOrder_52-FindByNumber', 'OrderID', 'ORDERID')}";
+
+    function populateTemplateWithRowData(row, actions){
+        return jQuery("#action_fraud_order").text()
+            .replace("%{uuid}",row.UUID)
+            .replace("%{orderno}",'<a href="' + viewOrderURL.replace("ORDERID", row.UUID) + '">' + row.id + '</a>')
+            .replace("%{date}",row.date)
+            .replace("%{billingAddress}",row.billingAddress)
+            .replace("%{shippingAddress}",row.shippingAddress)
+            .replace("%{customer.name}",row.customer.name)
+            .replace("%{customer.email}",row.customer.email)
+            .replace("%{total}",row.total)
+            .replace("%{actions}",actions)
+            .replace("%{products}",row.products.map(function(product){
+                return jQuery("#action_products").text()
+                    .replace("%{id}",product.id)
+                    .replace("%{name}",product.name)
+                    .replace("%{qty}",product.qty)
+                    .replace("%{price}",product.price)
+                }).join("\n")
+            );
+    }
+
+    function getFraudData(){
+        jQuery("#actioncontent").html("<tr><td><div class=\"loader\">Loading...</div></td></tr>");
+        jQuery.getJSON( "/on/demandware.store/Sites-Site/default/IngenicoActions-ShowPendingFraudApproval", function( data ) {
+            jQuery("#action_title").html("Orders Pending Fraud Approval");
+            jQuery("#actioncontent").html(jQuery("#action_fraud_order_headings").text());
+            data.map(function(row){ 
+                return jQuery("#actioncontent").append(
+                    populateTemplateWithRowData(
+                        row, 
+                        "<a href='#' class='approve' onclick='approveFraudOrder(\"" + row.id + "\", \"" + row.UUID + "\")'>${Resource.msg('action.table.action.approve','ingenicoadmin',null)}</a>" +
+                        "<a href='#' class='reject' onclick='cancelFraudOrder(\"" + row.id + "\", \"" + row.UUID + "\", event)'>${Resource.msg('action.table.action.reject','ingenicoadmin',null)}</a>"
+                    )
+                )
+            });
+        });
+    }
+
+    function getPendingApprovalData(){
+        jQuery("#actioncontent").html("<tr><td><div class=\"loader\">Loading...</div></td></tr>");
+        jQuery.getJSON( "/on/demandware.store/Sites-Site/default/IngenicoActions-ShowPendingApproval", function( data ) {
+            jQuery("#action_title").html("Orders Pending Approval");
+            jQuery("#actioncontent").html(jQuery("#action_fraud_order_headings").text());
+            data.map(function(row){ 
+                return jQuery("#actioncontent").append(
+                    populateTemplateWithRowData(
+                        row, 
+                        "<a href='#' class='approve' onclick='approveOrder(\"" + row.id + "\", \"" + row.UUID + "\")'>${Resource.msg('action.table.action.approve','ingenicoadmin',null)}</a>" +
+                        "<a href='#' class='reject' onclick='cancelFraudOrder(\"" + row.id + "\", \"" + row.UUID + "\", event)'>${Resource.msg('action.table.action.reject','ingenicoadmin',null)}</a>"
+                    )
+                )
+            });
+        });
+    }
+
+
+    function approveFraudOrder(orderno, uuid){
+        if(orderno){
+            jQuery('.overlay').toggleClass('show').html("<div class=\"loader\">Loading...</div>");
+            jQuery.getJSON( "/on/demandware.store/Sites-Site/default/IngenicoActions-ApproveOrderPendingFraud?orderNo=" + orderno + "&UUID=" + uuid, function( data ) {
+                if(!data || data.error){
+                    jQuery('.overlay').html("<div class='result error'>${Resource.msg('action.error','ingenicoadmin',null)}<span>" + data.errorMessage + "</span></div>");
+                    setTimeout(function() {
+                        jQuery('.overlay').toggleClass('show').html("");
+                    }, 3000);
+                    return;
+                }
+
+                if(data && data.status){
+                    jQuery('.overlay').html("<div class='result'>${Resource.msg('action.success','ingenicoadmin',null)} <b>" + data.status + "</b></div>");
+                    setTimeout(function() {
+                        jQuery('.overlay').toggleClass('show').html("");
+                        jQuery("${'#'}" + uuid).fadeTo(600,0,function(){ this.remove() });
+                        counts.fraud -= 1
+                        jQuery("${'#'}count_fraud_approval").fadeTo(300,0,function(){ jQuery("${'#'}count_fraud_approval").html(counts.fraud); }).fadeTo(300,1,function(){});
+                        
+                    }, 1000);
+                }else{
+                    jQuery('.overlay').html("<div class='result'>Request processed but result was unknown.</div>");
+                    setTimeout(function() {
+                        jQuery('.overlay').toggleClass('show').html("");                        
+                    }, 1000);
+                }
+            });
+        }
+    }
+
+    function cancelFraudOrder(orderno, uuid){
+        if(orderno){
+            jQuery('.overlay').toggleClass('show').html("<div class=\"loader\">Loading...</div>");
+            jQuery.getJSON( "/on/demandware.store/Sites-Site/default/IngenicoActions-CancelTransaction?orderNo=" + orderno + "&UUID=" + uuid, function( data ) {
+                if(!data || data.error){
+                    jQuery('.overlay').html("<div class='result error'>${Resource.msg('action.error','ingenicoadmin',null)}<span>" + data.errorMessage + "</span></div>");
+                    setTimeout(function() {
+                        jQuery('.overlay').toggleClass('show').html("");
+                    }, 3000);
+                    return;
+                }
+
+                if(data && data.status){
+                    jQuery('.overlay').html("<div class='result'>${Resource.msg('action.success','ingenicoadmin',null)} <b>" + data.status + "</b></div>");
+                    setTimeout(function() {
+                        jQuery('.overlay').toggleClass('show').html("");
+                        jQuery("${'#'}" + uuid).fadeTo(600,0,function(){ this.remove() });
+                        counts.fraud -= 1
+                        jQuery("${'#'}count_fraud_approval").fadeTo(300,0,function(){ jQuery("${'#'}count_fraud_approval").html(counts.fraud); }).fadeTo(300,1,function(){});
+                    }, 1000);
+                }else{
+                    jQuery('.overlay').html("<div class='result'>Request processed but result was unknown.</div>");
+                    setTimeout(function() {
+                        jQuery('.overlay').toggleClass('show').html("");                        
+                    }, 1000);                    
+                }
+            });
+        }
+    }
+
+    function approveOrder(orderno, uuid, ev){
+        if(ev){
+            ev.stopPropagation();
+            ev.preventDefault();
+        }
+        if(orderno){
+            jQuery('.overlay').toggleClass('show').html("<div class=\"loader\">Loading...</div>");
+            jQuery.getJSON( "/on/demandware.store/Sites-Site/default/IngenicoActions-ApproveOrderPaymentPendingApproval?orderNo=" + orderno + "&UUID=" + uuid, function( data ) {
+                if(!data || data.error){
+                    jQuery('.overlay').html("<div class='result error'>${Resource.msg('action.error','ingenicoadmin',null)}<span>" + data.errorMessage + "</span></div>");
+                    setTimeout(function() {
+                        jQuery('.overlay').toggleClass('show').html("");
+                    }, 3000);
+                    return;
+                }
+
+                if(data && data.status){
+                    jQuery('.overlay').html("<div class='result'>${Resource.msg('action.success','ingenicoadmin',null)} <b>" + data.status + "</b></div>");
+                    setTimeout(function() {
+                        jQuery('.overlay').toggleClass('show').html("");
+                        jQuery("${'#'}" + uuid).fadeTo(600,0,function(){ this.remove() });
+                        counts.approval -= 1
+                        jQuery("${'#'}count_approval").fadeTo(300,0,function(){ jQuery("${'#'}count_approval").html(counts.approval); }).fadeTo(300,1,function(){});
+                        
+                    }, 1000);
+                }else{
+                    jQuery('.overlay').html("<div class='result'>Request processed but result was unknown.</div>");
+                    setTimeout(function() {
+                        jQuery('.overlay').toggleClass('show').html("");                        
+                    }, 1000);                    
+                }
+            });
+        }
+    }
+
+    </script>
+</isdecorate>

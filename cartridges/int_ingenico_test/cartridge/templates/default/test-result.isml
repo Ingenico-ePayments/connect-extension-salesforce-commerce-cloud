@@ -1,0 +1,10 @@
+<iscontent type="application/json" charset="UTF-8" compact="true"/>
+<iscomment> TEMPLATENAME: test-result.isml </iscomment>
+<iscomment><h2>Test: ${pdict.testName}</h2>
+<div>
+<pre>
+<isprint value=${JSON.stringify(pdict.payload, null, 4)} />
+</pre>
+</div>
+</iscomment>
+<isprint value=${JSON.stringify(pdict.payload, null, 4)} encoding="off"/>

@@ -1,0 +1,24 @@
+{
+	"hooks": [
+		{
+			"name": "app.payment.processor.INGENICO_CREDIT",
+			"script": "./processor/INGENICO_CREDIT"
+		},
+		{
+			"name": "app.payment.processor.INGENICO_HOSTED",
+			"script": "./processor/INGENICO_HOSTED"
+		},
+		{
+			"name": "dw.order.payment.authorizeCreditCard",
+			"script": "./processor/INGENICO_PROCESSOR.js"
+		},
+		{
+			"name": "dw.ocapi.shop.basket.payment_methods.modifyGETResponse",
+			"script": "./processor/INGENICO_PROCESSOR.js"
+        },
+		{
+			"name": "dw.ocapi.shop.order.payment_methods.modifyGETResponse",
+			"script": "./processor/INGENICO_PROCESSOR.js"
+        }
+	]
+}

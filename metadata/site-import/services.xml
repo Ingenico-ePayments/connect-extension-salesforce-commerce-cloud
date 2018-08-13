@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns="http://www.demandware.com/xml/impex/services/2014-09-26">
+
+    <service-profile service-profile-id="Ingenico_Profile">
+        <timeout-millis>20000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>true</cb-enabled>
+        <cb-calls>2</cb-calls>
+        <cb-millis>1000</cb-millis>
+    </service-profile>
+
+    <service service-id="Ingenico_Approve">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_ApproveFraud">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_Cancel">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_Capture">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_Create">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_CreateHosted">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_CreateToken">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_GetHostedStatus">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_GetIINDetails">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_Payment_Tokenize">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_Product_List">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_Refund">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_Refund_Approve">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_Refund_Cancel">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_Refund_Undo_Approval">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_Retrieve">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_RetrieveCaptures">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_RetrieveRefund">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+    <service service-id="Ingenico_UndoCapture">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>IngenicoSvc</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Ingenico_Profile</profile-id>
+        <credential-id/>
+    </service>
+
+</services>

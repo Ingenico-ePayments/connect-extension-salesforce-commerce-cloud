@@ -1,0 +1,55 @@
+<!--- TEMPLATENAME: refund.isml --->
+<div class="test" id="refund">
+	<h2>Refund Actions</h2>
+	<h5>URL: ${pdict.CONFIG.getAPIURL(pdict.CONFIG.Services.PAYMENT_REFUND,123456).URL}</h5>
+	<div>
+		<form action="${URLUtils.httpsContinue()}" 
+			method="post"
+			onSubmit="sendForm(this,event)")
+			target="results" class="form-horizontal"
+			name="refundPayment" 
+			id="refundPayment">
+			<fieldset>
+				<isinputfield
+					formfield="${pdict.CurrentForms.refundPayment.reference}"
+					type="input" />
+				<isinputfield
+					formfield="${pdict.CurrentForms.refundPayment.paymentID}"
+					type="input" />
+				<isinputfield
+					formfield="${pdict.CurrentForms.refundPayment.refundID}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.refundPayment.amount}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.refundPayment.currency}"
+					type="input" />
+				<iscomment> <isinputfield formfield="${pdict.CurrentForms.refundPayment.productID}"
+					type="input" /> </iscomment>
+			</fieldset>
+			<div class="actions">
+				<button type="submit"
+					name="${pdict.CurrentForms.refundPayment.refund.htmlName}"
+					value="refund" 
+					onClick="handleFormAction(this,event)">Refund</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.refundPayment.view.htmlName}"
+					value="view" 
+					onClick="handleFormAction(this,event)">View refund status</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.refundPayment.approve.htmlName}"
+					value="approve" 
+					onClick="handleFormAction(this,event)">Approve</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.refundPayment.undoapproval.htmlName}"
+					value="undoapproval" 
+					onClick="handleFormAction(this,event)">Undo Approval</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.refundPayment.cancel.htmlName}"
+					value="cancel" 
+					onClick="handleFormAction(this,event)">Cancel refund</button>
+			</div>
+		</form>
+	</div>
+	<h3>Results (<a href="#" onClick="toggleResults(this)">show/hide</a>)<span class="result-status"></span></h3>
+	<div class="test-results" id="capturePaymentResults"></div>
+</div>

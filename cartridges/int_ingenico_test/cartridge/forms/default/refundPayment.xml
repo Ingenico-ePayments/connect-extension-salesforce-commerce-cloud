@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19">
+<field formid="paymentID" label="paymentID" type="string" mandatory="false" default-value="00000000000" />
+<field formid="refundID" label="refundID" type="string" mandatory="false" default-value="111111111111" />
+<field formid="amount" label="amount" type="string" mandatory="false" default-value="123.45" />
+<field formid="currency" label="currency" type="string" mandatory="false" default-value="USD" />
+<field formid="reference" label="reference" type="string" mandatory="false" default-value="REF1234" />
+<field formid="productID" label="productID" type="string" mandatory="false" default-value="1" />
+<action formid="refund" valid-form="true" />
+<action formid="view" valid-form="true" />
+<action formid="undoapproval" valid-form="true" />
+<action formid="approve" valid-form="true" />
+<action formid="cancel" valid-form="true" />
+</form>

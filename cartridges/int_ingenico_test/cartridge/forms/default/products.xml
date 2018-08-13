@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19">
+<field formid="countrycode" label="countrycode" type="string" mandatory="false" default-value="US" />
+<field formid="currency" label="currency" type="string" mandatory="false" default-value="USD" />
+<field formid="hide" label="hide" type="string" mandatory="false" default-value="fields" />
+<action formid="productlist" valid-form="true" />
+</form>

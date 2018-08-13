@@ -1,0 +1,8 @@
+<iscomment> TEMPLATENAME: test-start.isml </iscomment>
+<isinclude template="util/modules" />
+<isdecorate template="test-template">
+    <isinclude template="forms/create-auth" />
+    <isinclude template="forms/capture" />
+    <isinclude template="forms/refund" />
+    <isinclude template="forms/products" />
+</isdecorate>

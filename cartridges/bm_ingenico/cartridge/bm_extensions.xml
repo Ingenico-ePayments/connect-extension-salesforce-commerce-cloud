@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<extensions xmlns="http://www.demandware.com/xml/bmmodules/2007-12-11" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.demandware.com/xml/bmmodules/2007-12-11 bmext.xsd">
+	<menuaction id="ingenico_order_actions" menupath="orders" position="2" site="true">
+		<name xml:lang="x-default">Orders (Action pending)</name>
+		<short_description xml:lang="x-default"></short_description>
+		<description xml:lang="x-default">Orders that require attention</description>
+		<exec pipeline="IngenicoActions" node="Start"/>
+		<sub-pipelines>
+			<pipeline name="IngenicoActions" />
+		</sub-pipelines>
+		<icon>bm/images/open_orders_ico_warning.gif</icon>
+	</menuaction>
+
+</extensions>

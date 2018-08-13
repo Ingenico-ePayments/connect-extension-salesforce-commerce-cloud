@@ -1,0 +1,16 @@
+<iscomment> TEMPLATENAME: 3DSredirect.isml </iscomment>
+<html>
+    <head>
+        <META HTTP-EQUIV="REFRESH" CONTENT="0; URL=javascript:window.top.location=${pdict.redirect};">
+        <script type="text/javascript" language="javascript">
+        if (top.frames.length>0){
+            top.location = "${pdict.redirect}";
+        }else{
+            window.location = "${pdict.redirect}";
+        }
+        </script>
+    </head>
+    <body>
+        Redirecting to <a href="${pdict.redirect}" target="_top">${pdict.redirect}</a>
+    </body>
+</html>

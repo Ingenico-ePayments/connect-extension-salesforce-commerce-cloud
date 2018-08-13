@@ -1,0 +1,5 @@
+<!--- TEMPLATENAME: PaymentInstrumentInfo_INGENICO_HOSTED.isml --->
+<iscomment>
+    Shows the details of an Ingenico transaction within the payment tab of an order.
+</iscomment>
+<isinclude template="order/PaymentInstrumentInfo_INGENICO_CREDIT" />

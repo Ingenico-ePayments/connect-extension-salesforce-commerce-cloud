@@ -1,0 +1,61 @@
+<!--- TEMPLATENAME: capture.isml --->
+<div class="test" id="capturePayment">
+	<h2>Payment Actions</h2>
+	<h5>URL: ${pdict.CONFIG.getAPIURL(pdict.CONFIG.Services.PAYMENT_CAPTURE,123456).URL}</h5>
+	<div>
+		<form action="${URLUtils.httpsContinue()}" 
+			method="post"
+			onSubmit="sendForm(this,event)")
+			target="results" class="form-horizontal"
+			name="captureFromAuth" 
+			id="captureFromAuth">
+			<fieldset>
+				<isinputfield
+					formfield="${pdict.CurrentForms.captureFromAuth.paymentID}"
+					type="input" />
+				<isinputfield formfield="${pdict.CurrentForms.captureFromAuth.amount}"
+					type="input" />
+			</fieldset>
+			<div class="actions">
+				<iscomment> <button type="submit"
+					name="${pdict.CurrentForms.captureFromAuth.capture.htmlName}"
+					value="capture" 
+					onClick="handleFormAction(this,event)">Capture</button> </iscomment>
+				<button type="submit"
+					name="${pdict.CurrentForms.captureFromAuth.status.htmlName}"
+					value="status" 
+					onClick="handleFormAction(this,event)">Status</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.captureFromAuth.approvefraud.htmlName}"
+					value="approvefraud" 
+					onClick="handleFormAction(this,event)">Approve Fraud</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.captureFromAuth.approvepending.htmlName}"
+					value="approvepending" 
+					onClick="handleFormAction(this,event)">Approve Pending</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.captureFromAuth.capture.htmlName}"
+					value="capture" 
+					onClick="handleFormAction(this,event)">Capture</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.captureFromAuth.captureslist.htmlName}"
+					value="captureslist" 
+					onClick="handleFormAction(this,event)">List Captures</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.captureFromAuth.tokenize.htmlName}"
+					value="tokenize" 
+					onClick="handleFormAction(this,event)">Tokenize</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.captureFromAuth.undocapture.htmlName}"
+					value="undocapture" 
+					onClick="handleFormAction(this,event)">Undo Capture</button>
+				<button type="submit"
+					name="${pdict.CurrentForms.captureFromAuth.cancel.htmlName}"
+					value="cancel" 
+					onClick="handleFormAction(this,event)">Cancel</button>
+			</div>
+		</form>
+	</div>
+	<h3>Results (<a href="#" onClick="toggleResults(this)">show/hide</a>)<span class="result-status"></span></h3>
+	<div class="test-results" id="capturePaymentResults"></div>
+</div>

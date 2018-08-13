@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <type-extension type-id="PaymentTransaction">
+		<custom-attribute-definitions>
+			<attribute-definition attribute-id="ING_authorisationCode">
+                <display-name xml:lang="x-default">Auth Code</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>true</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_hostedCheckoutId">
+				<display-name xml:lang="x-default">Hosted Checkout ID</display-name>
+				<type>string</type>
+				<mandatory-flag>false</mandatory-flag>
+				<externally-managed-flag>true</externally-managed-flag>
+				<min-length>0</min-length>
+			</attribute-definition>
+        </custom-attribute-definitions>
+    </type-extension>
+	<type-extension type-id="Order">
+		<custom-attribute-definitions>
+            <attribute-definition attribute-id="ING_status">
+                <display-name xml:lang="x-default">Ingenico Payment Status</display-name>
+                <description xml:lang="x-default">Payment status used for quick searches</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>true</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="ING_paymentStatus">
+                <display-name xml:lang="x-default">Ingenico Status Summary</display-name>
+                <description xml:lang="x-default">Tracks latest status for refunds and payments</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>true</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_transactionHistory">
+                <display-name xml:lang="x-default">Ingenico Transaction History</display-name>
+                <description xml:lang="x-default">List of requests, responses from API + webhooks</description>
+                <type>set-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>true</externally-managed-flag>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_refundIDs">
+                <display-name xml:lang="x-default">List of refund transaction IDs </display-name>
+                <description xml:lang="x-default">Keeps track of all the refund ids for a given order</description>
+                <type>set-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>true</externally-managed-flag>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Ingenico">
+                <display-name xml:lang="x-default">Ingenico Payments</display-name>
+                <attribute attribute-id="ING_status"/>
+				<attribute attribute-id="ING_refundIDs"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+	
+	<type-extension type-id="SitePreferences">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="ING_CC_requireApproval">
+                <display-name xml:lang="x-default">Card approval before capture</display-name>
+                <description xml:lang="x-default">Approve authorised cards before capture. If set to No, amount will be captured when authorised.</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="ING_skip3DS">
+                <display-name xml:lang="x-default">Skip 3D Secure</display-name>
+                <description xml:lang="x-default">Skip Verified by VISA, MasterCard SecureCode, AMEX SafeKey, etc. </description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_enableTransLogs">
+                <display-name xml:lang="x-default">Enable Transaction Logs</display-name>
+                <description xml:lang="x-default">Enable logging of all responses from the API against a booking.</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_storeTokenInProfile">
+                <display-name xml:lang="x-default">Tokenise credit card number</display-name>
+                <description xml:lang="x-default">If enabled, credit card number will be masked and a token will be used instead.</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_sendfraudEmail">
+                <display-name xml:lang="x-default">Notify Fraud Manager</display-name>
+                <description xml:lang="x-default">If enabled, it will send an email notifying them of every transaction flagged for manual Fraud Check.</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_fraudMgrEmail">
+                <display-name xml:lang="x-default">Fraud Manager's email address</display-name>
+                <description xml:lang="x-default">The email address that will receive all the fraud manager notifications.</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_SoftDescriptor">
+                <display-name xml:lang="x-default">Descriptor</display-name>
+                <description xml:lang="x-default">Text that will appear in the customer's statement or during 3rd party checkout.</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+
+			<attribute-definition attribute-id="ING_API_ClientID">
+                <display-name xml:lang="x-default">API Key ID</display-name>
+                <description xml:lang="x-default"></description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_API_PrivateKey">
+                <display-name xml:lang="x-default">API Secret Key</display-name>
+                <description xml:lang="x-default"></description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="ING_Webhook_SecretKey">
+                <display-name xml:lang="x-default">Webhook Secret Key</display-name>
+                <description xml:lang="x-default"></description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="ING_MerchantID">
+                <display-name xml:lang="x-default">Merchant ID</display-name>
+                <type>string</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="ING_API_Environment">
+                <display-name xml:lang="x-default">API Environment</display-name>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Production</display>
+                        <value>PROD</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Pre-Production</display>
+                        <value>PREPROD</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Sandbox</display>
+                        <value>SANDBOX</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="ING_API_Server_Location">
+                <display-name xml:lang="x-default">API Platform</display-name>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Worldwide</display>
+                        <value>WW</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Europe</display>
+                        <value>EU</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_sendfraudCustEmail">
+                <display-name xml:lang="x-default">Send Email For Fraud Status</display-name>
+                <description xml:lang="x-default">Send Email to the Customer For Fraud Status</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_sendPendingApprovalCustEmail">
+                <display-name xml:lang="x-default">Send Email For Pending Approval Status</display-name>
+                <description xml:lang="x-default">Send Email to the Customer For Pending approval Status</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_sendPaidCustEmail">
+                <display-name xml:lang="x-default">Send Email For Paid Status</display-name>
+                <description xml:lang="x-default">Send Email to the Customer For Paid Status</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_sendRedirectedCustEmail">
+                <display-name xml:lang="x-default">Send Email For Redirected Status</display-name>
+                <description xml:lang="x-default">Send Email to the Customer For Redirect(slow 3rd party) Status</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_sendWaitingForPayment">
+                <display-name xml:lang="x-default">Send Email For Waiting for payment</display-name>
+                <description xml:lang="x-default">Send Email to the Customer For Payment Pending Status</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_sendUnsuccessCustEmail">
+                <display-name xml:lang="x-default">Send Email For Failed Transactions</display-name>
+                <description xml:lang="x-default">Send Email Customer For Cancelled or Rejected Statuses</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+			<!-- <attribute-definition attribute-id="ING_WX_User">
+                <display-name xml:lang="x-default">Ingenico WX User</display-name>
+                <description xml:lang="x-default">Ingenico WX User</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value></default-value>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_WX_Password">
+                <display-name xml:lang="x-default">Ingenico WX Password</display-name>
+                <description xml:lang="x-default">Ingenico WX Password</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value></default-value>
+            </attribute-definition>
+			<attribute-definition attribute-id="ING_WX_Host">
+                <display-name xml:lang="x-default">Ingenico WX Host</display-name>
+                <description xml:lang="x-default">Ingenico WX Host</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value></default-value>
+            </attribute-definition> -->
+		</custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Ingenico_Configurations">
+                <display-name xml:lang="x-default">Ingenico Configuration</display-name>
+                <attribute attribute-id="ING_skip3DS"/>
+                <attribute attribute-id="ING_enableTransLogs"/>
+                <attribute attribute-id="ING_storeTokenInProfile"/>
+                <attribute attribute-id="ING_sendfraudEmail"/>
+                <attribute attribute-id="ING_fraudMgrEmail"/>
+				<attribute attribute-id="ING_SoftDescriptor"/>
+            </attribute-group>
+			<attribute-group group-id="Ingenico_APICredentials">
+                <display-name xml:lang="x-default">Ingenico API Credentials</display-name>
+                <attribute attribute-id="ING_API_Environment"/>
+                <attribute attribute-id="ING_API_Server_Location"/>
+                <attribute attribute-id="ING_MerchantID"/>
+				<attribute attribute-id="ING_API_ClientID"/>
+				<attribute attribute-id="ING_API_PrivateKey"/>
+                <attribute attribute-id="ING_Webhook_SecretKey"/>
+			</attribute-group>
+			<attribute-group group-id="Ingenico_Emails">
+                <display-name xml:lang="x-default">Ingenico Email Configuration</display-name>
+                <attribute attribute-id="ING_sendfraudCustEmail"/>
+                <attribute attribute-id="ING_sendPendingApprovalCustEmail"/>
+                <attribute attribute-id="ING_sendPaidCustEmail"/>
+                <attribute attribute-id="ING_sendRedirectedCustEmail"/>
+                <attribute attribute-id="ING_sendWaitingForPayment"/>
+                <attribute attribute-id="ING_sendUnsuccessCustEmail"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+</metadata>

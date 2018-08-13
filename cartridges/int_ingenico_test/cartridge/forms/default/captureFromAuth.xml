@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19">
+<field formid="paymentID" label="paymentID" type="string" mandatory="true" default-value="FDSA1234" />
+<field formid="amount" label="amount" type="string" default-value="123.45" />
+<action formid="capture" valid-form="true" />
+<action formid="status" valid-form="true" />
+<action formid="cancel" valid-form="true" />
+<action formid="capture" valid-form="true" />
+<action formid="captureslist" valid-form="true" />
+<action formid="undocapture" valid-form="true" />
+<action formid="tokenize" valid-form="true" />
+<action formid="approvefraud" valid-form="true" />
+<action formid="approvepending" valid-form="true" />
+</form>
