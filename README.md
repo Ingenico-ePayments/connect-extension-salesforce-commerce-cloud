@@ -56,7 +56,9 @@ Select a website from the list on the top left to add the API details in the sit
 	https:/**DOMAIN**/ on/demandware.store/Sites-**SITENAME**-Site/**LANGUAGE**/Ingenico-Feedback
 
 The _DOMAIN_ is the one that links to the instance (sandbox, staging or production). _SITENAME_ refers to the name as shown in Business Manager for each site. _LANGUAGE_ is one of the locals that are allowed on the specific site as defined in _Merchant Tools > Site Preferences > Locales_.
+
 NOTE: Both endpoints (WW and EU) will automatically failover to a second datacenter in case the main datacenter isn't available.
+
 NOTE: There is a one to one mapping between webhook URL, Ingenico account, Demandware site and orders. Orders placed in one site, need to receive the update on the specific URL for that site.
 
 6. **Update role permissions**
